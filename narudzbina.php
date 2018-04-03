@@ -1,22 +1,13 @@
+<?php
+    include 'db_connect.php';
+    $sql = "SELECT * FROM odakle";
+    $result = mysqli_query($conn, $sql);
+?>
 <!doctype html>
 <html lang="en">
-
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="https://getbootstrap.com/favicon.ico">
-
-    <title>Narucite AvioTaxi</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="css/product.css" rel="stylesheet">
-</head>
+<?php
+    include 'head.php';
+?>
 
 <body class="bg-light">
 
@@ -24,8 +15,7 @@
         <div class="py-5 text-center">
             <img class="d-block mx-auto mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
             <h2>Checkout form</h2>
-            <p class="lead">Below is an example form built entirely with Bootstrap's form controls. Each required form group has a validation
-                state that can be triggered by attempting to submit the form without completing it.</p>
+
         </div>
 
         <div class="row">
@@ -42,7 +32,7 @@
                         </div>
                         <span class="text-muted">$12</span>
                     </li>
-                    
+
                 </ul>
 
                 <form class="card p-2">
@@ -55,25 +45,27 @@
                 </form>
             </div>
             <div class="col-md-8 order-md-1">
-                <h4 class="mb-3">Billing address</h4>
+                <h4 class="mb-3">Naruci vozilo</h4>
                 <form class="needs-validation" novalidate>
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="country">Country</label>
-                            <select class="custom-select d-block w-100" id="country" required>
-                                <option value="">Choose...</option>
-                                <option>United States</option>
+                            <label for="odakle">Odakle:</label>
+                            <select class="custom-select d-block w-100" id="odakle" required>
+                            <option>Nis</option>
+                            <option>Leskovac</option>
+                            <option>Doljevac</option>
                             </select>
                             <div class="invalid-feedback">
                                 Please select a valid country.
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="state">State</label>
-                            <select class="custom-select d-block w-100" id="state" required>
-                                <option value="">Choose...</option>
-                                <option>California</option>
+                            <label for="dokle">Dokle</label>
+                            <select class="custom-select d-block w-100" id="dokle" required>
+                            <option>Leskovac</option>
+                            <option>Nis</option>
+                            <option>Doljevac</option>
                             </select>
                             <div class="invalid-feedback">
                                 Please provide a valid state.
@@ -82,22 +74,55 @@
                     </div>
 
                     <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="address">Address</label>
-                        <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
-                        <div class="invalid-feedback">
-                            Please enter your shipping address.
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                            <label for="time">Time</label>
-                            <input type="time" class="form-control" id="time" value="12:30" required>
+                        <div class="col-md-6 mb-3">
+                            <label for="address">Adresa</label>
+                            <input type="text" class="form-control" id="address" placeholder="Vozdova 10" required>
                             <div class="invalid-feedback">
                                 Please enter your shipping address.
                             </div>
                         </div>
                     </div>
-                    <hr class="mb-4">
+                    <!--<hr class="mb-4">-->
+                    <div class="row">
+                        <!--<div class="col-md-6 mb-3">
+                            <label for="time">Time</label>
+                            <input type="time" class="form-control" id="time" value="12:30" required>
+                            <div class="invalid-feedback">
+                                Please enter your shipping address.
+                            </div>
+                        </div>-->
+                        <div class="col-md-6 mb-3" id="vremeDiv">
+                            <label for="vreme">Vreme</label>
+                            <select class="custom-select d-block w-100" id="vreme" required>
+                            <option>18h</option>
+                            <option>19h</option>
+                            <option>20h</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please provide a valid state.
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="vreme_check_box">Time</label>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="vreme_check_box" onchange=timeCheckFunction()>
+                                <label class="custom-control-label" for="vreme_check_box">Birajte vreme sami</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="address">Broj sedista</label>
+                            <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
+                            <div class="invalid-feedback">
+                                Please enter your shipping address.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="comment">Komentar:</label>
+                        <textarea class="form-control" rows="5" id="comment"></textarea>
+                    </div>
                     <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
                 </form>
             </div>
@@ -148,6 +173,22 @@
                     });
                 }, false);
             })();
+    </script>
+    <script>
+
+            function timeCheckFunction(){
+                var timeCheckBox = document.getElementById('vreme_check_box').checked;
+                var timeSelect = document.getElementById('vremeDiv')
+                if(!timeCheckBox){
+                    timeSelect.innerHTML = '<div class="col-md-6 mb-3" id="vremeDiv"><label for="vreme">Vreme</label><select class="custom-select d-block w-100" id="vreme" required><option>18h</option><option>19h</option><option>20h</option></select><div class="invalid-feedback">Please provide a valid state.</div></div>';
+                }
+                else{
+                    timeSelect.innerHTML = '<div class="col-md-6 mb-3"><label for="time">Time</label><input type="time" class="form-control" id="time" value="12:30" required><div class="invalid-feedback">Please enter your shipping address.</div></div>';
+                }
+                
+            }
+            
+
     </script>
 </body>
 

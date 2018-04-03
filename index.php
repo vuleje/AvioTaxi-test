@@ -1,3 +1,7 @@
+<?php
+
+?>
+
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -35,7 +39,7 @@
       <div class="col-md-5 p-lg-5 mx-auto my-5">
         <h1 class="display-4 font-weight-normal">AvioTaxi</h1>
         <p class="lead font-weight-normal">Vaš privatan taxi, bilo kada, bilo gde, tu smo za Vas!</p>
-        <a class="btn btn-outline-secondary" href="narudzbina.html">Naruči uslugu</a>
+        <a class="btn btn-outline-secondary" href="narudzbina.php">Naruči uslugu</a>
       </div>
       <div class="product-device box-shadow d-none d-md-block"></div>
       <div class="product-device product-device-2 box-shadow d-none d-md-block"></div>
